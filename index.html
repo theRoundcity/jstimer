@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Javascript timer</title>
+	<style>
+		body{
+			margin: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+		.timer-holder{
+			padding: 2em;
+			background-color: #f5f5f5;
+			border-radius: 10px;
+			box-shadow: 0 0 3px 0 rgba(0,0,0,.4);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+            opacity: 1;
+            transition: opacity 1s;
+		}
+		#timer-day{
+			font-size: 3em;
+			font-weight: bold;
+			color: #444;
+			font-family: arial;
+		}
+		.timer-time-holder{
+			display: flex;
+			flex-direction: row;
+			flex-wrap: no-wrap;
+		}
+		.timer-time-holder div{
+			font-size: 1.5em;
+			color: indianred;
+			padding: .5em;
+			font-weight: bold;
+			font-family: arial;
+		}
+	</style>
+	<script>
+		window.onload = function(){
+			let s = window.setInterval(function(){
+				let r = generateCalendar();
+				let e = new Date();
+				//year,month,day
+                e.setFullYear(2020,4,29);
+				//hour,min,sec
+                e.setHours(0,13,0,0);
+				if(r >= e.getTime()){
+                    document.getElementById("timer-holder").style.opacity = 0;
+					clearInterval(s);
+				}
+			},1000);
+		};
+		function generateCalendar(){
+			let d = new Date();
+			document.getElementById("timer-day").innerText = d.getDate();
+			document.getElementById("timer-hours").innerText = String(d.getHours()).padStart(2,0);
+			document.getElementById("timer-minutes").innerText = String(d.getMinutes()).padStart(2,0);
+			document.getElementById("timer-seconds").innerText = String(d.getSeconds()).padStart(2,0);
+			return d.getTime();
+		}
+	</script>
+</head>
+<body>
+	<div id="timer-holder" class="timer-holder">
+		<div id="timer-day"></div>
+		<div class="timer-time-holder">
+			<div id="timer-hours"></div>
+			<div id="timer-minutes"></div>
+			<div id="timer-seconds"></div>
+		</div>
+	</div>
+</body>
+</html>
